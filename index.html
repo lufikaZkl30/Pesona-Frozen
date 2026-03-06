@@ -1,924 +1,838 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pesona Frozen | Premium Indonesian Food</title>
+    <title>Pesona Frozen | Premium Indonesian Frozen Food</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Favicon -->
-    <link rel="icon" href="assets/img/logo.png" type="image/png">
-
-    <!-- Phosphor Icons -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind Config -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        heading: ['Outfit', 'sans-serif'],
-                    },
                     colors: {
-                        cream: {
-                            DEFAULT: '#FDFBF7',
-                            dark: '#F3EFE6'
-                        },
                         brand: {
-                            green: '#15803d', // Hijau logo
-                            greenHover: '#166534',
-                            dark: '#1c1917', // Hitam elegan
-                            darkCard: '#292524',
-                            accent: '#f59e0b', // Emas bintang
+                            green: '#10B465', // Primary
+                            cream: '#F5F0E6', // Secondary (Krem lembut)
+                            black: '#111111', // Text Elegant
+                            gold: '#EAC54F',  // Accent
+                            dark: '#1A1A1A',  // Dark elements
+                            card: '#222222'   // Dark Card background
                         }
                     },
-                    boxShadow: {
-                        'soft': '0 20px 40px -15px rgba(0,0,0,0.05)',
-                        'float': '0 30px 60px -15px rgba(21, 128, 61, 0.15)',
-                    },
-                    animation: {
-                        'float': 'floating 3s ease-in-out infinite',
-                        'spin-slow': 'spin 15s linear infinite',
-                    },
-                    keyframes: {
-                        floating: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-15px)' },
-                        }
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
 
+    <!-- Custom CSS -->
     <style>
-        /* Custom CSS tambahan untuk detail spesifik */
-        body { background-color: #FDFBF7; }
-        
-        .nav-link { position: relative; }
+        body {
+            /* Background krem lembut dengan subtle gradient elegan */
+            background: linear-gradient(135deg, #FCFAF8 0%, #F5F0E6 50%, #EBE4D5 100%);
+            color: #111111;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Pattern Outline Makanan Indonesia Halus */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            /* SVG Pattern outline: Mangkuk/Bakso, Pastel, Cabai, Sate */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg fill='none' stroke='%2310B465' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' opacity='0.04'%3E%3Cpath d='M30 45 L50 45 Q50 60 40 60 Q30 60 30 45 Z'/%3E%3Cpath d='M35 45 V35 M40 45 V30 M45 45 V35'/%3E%3Cpath d='M110 115 C110 100 130 100 130 115 Z'/%3E%3Cpath d='M110 115 Q120 112 130 115' stroke-dasharray='2 3'/%3E%3Cpath d='M30 120 Q45 115 45 130 Q35 135 30 120 Z'/%3E%3Cpath d='M30 120 L25 115'/%3E%3Cpath d='M115 30 L125 40 M110 35 L118 43 M105 40 L113 48 M102 50 L128 24'/%3E%3C/g%3E%3C/svg%3E");
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #F5F0E6; }
+        ::-webkit-scrollbar-thumb { background: #10B465; border-radius: 4px; }
+
+        /* Navbar Hover & Active Effect */
+        .nav-link {
+            position: relative;
+            padding-bottom: 4px;
+        }
         .nav-link::after {
             content: '';
             position: absolute;
             width: 0;
             height: 2px;
-            bottom: -4px;
-            left: 0;
-            background-color: #15803d;
-            transition: width 0.3s ease;
+            bottom: 0;
+            left: 50%;
+            background-color: #10B465;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
         }
-        .nav-link:hover::after { width: 100%; }
-
-        .category-tab.active {
-            border-bottom: 2px solid #15803d;
-            color: #15803d;
-            font-weight: 600;
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
         }
 
-        .dashed-circle {
-            background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='1000' ry='1000' stroke='%23f59e0bFF' stroke-width='3' stroke-dasharray='12%2c 16' stroke-dashoffset='0' stroke-linecap='round'/%3e%3c/svg%3e");
-            border-radius: 1000px;
+        /* Product Card Hover Animation */
+        .product-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 30px -5px rgba(16, 180, 101, 0.2), 0 15px 15px -5px rgba(16, 180, 101, 0.1);
+        }
+        
+        /* Floating Animation */
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
         }
 
-        .decorative-blob {
-            position: absolute;
-            z-index: -1;
-            filter: blur(60px);
-            opacity: 0.4;
-            border-radius: 50%;
+        /* Spin Slow for Dashed Circle */
+        .spin-slow {
+            animation: spin 35s linear infinite;
+        }
+
+        /* Hide logic for filtering */
+        .hide-item { display: none !important; }
+
+        /* Order Popup Fade In */
+        .fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
     </style>
 </head>
-<body class="text-brand-dark antialiased overflow-x-hidden relative">
+<body class="font-sans relative selection:bg-brand-green selection:text-white pb-10">
 
-    <!-- Decorative Blobs -->
-    <div class="decorative-blob bg-brand-green w-96 h-96 top-0 left-0 -translate-x-1/2 -translate-y-1/2"></div>
-    <div class="decorative-blob bg-brand-accent w-80 h-80 top-1/4 right-0 translate-x-1/2"></div>
+    <!-- Dekorasi Background Soft Shadow -->
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-green opacity-5 blur-[100px] rounded-full z-0 pointer-events-none"></div>
+    <div class="absolute top-[800px] left-[-200px] w-[600px] h-[600px] bg-brand-gold opacity-10 blur-[120px] rounded-full z-0 pointer-events-none"></div>
 
-    <!-- 🧭 NAVBAR -->
-    <nav class="fixed w-full top-4 z-50 px-4 md:px-8">
-        <div class="max-w-6xl mx-auto bg-brand-dark rounded-full px-6 py-4 flex justify-between items-center shadow-2xl backdrop-blur-md bg-opacity-95">
-            
-            <!-- Mobile Menu Button -->
-            <button id="mobileMenuBtn" class="md:hidden text-white hover:text-brand-green">
-                <i class="ph ph-list text-2xl"></i>
+    <!-- ==========================================
+         ORDER POPUP (HIDDEN BY DEFAULT)
+         ========================================== -->
+    <div id="order-popup" class="fixed inset-0 bg-brand-black/60 backdrop-blur-sm z-[100] hidden flex items-center justify-center px-4">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl relative fade-in">
+            <!-- Close Button -->
+            <button onclick="closePopup()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-black transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
             </button>
-
-            <!-- Left Menu -->
-            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
-                <a href="#home" class="nav-link hover:text-white transition-colors">Home</a>
-                <a href="#about" class="nav-link hover:text-white transition-colors">About</a>
-                <a href="#products" class="nav-link hover:text-white transition-colors">Products</a>
+            
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-brand-green/10 rounded-full flex items-center justify-center mx-auto mb-4 text-brand-green">
+                    <i data-lucide="shopping-bag" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-2xl font-display font-bold text-brand-black">Choose Order Type</h3>
+                <p class="text-sm text-gray-500 mt-2">Where would you like to place your order?</p>
             </div>
 
-            <!-- Center Logo -->
-            <div class="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-cream p-1.5 rounded-full border-4 border-brand-dark cursor-pointer">
-                <div class="bg-brand-green w-12 h-12 rounded-full flex items-center justify-center text-white font-heading font-bold text-xl shadow-inner">
-                    PF
+            <div class="space-y-4">
+                <button onclick="window.open('https://shopee.co.id', '_blank')" class="w-full flex items-center justify-between p-4 rounded-xl border-2 border-gray-100 hover:border-brand-green hover:bg-brand-green/5 transition-all group">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-[#EE4D2D]/10 rounded-full flex items-center justify-center text-[#EE4D2D]">
+                            <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                        </div>
+                        <div class="text-left">
+                            <h4 class="font-bold text-brand-black group-hover:text-brand-green transition-colors">Order Pesona Food</h4>
+                            <p class="text-xs text-gray-500">Ready to eat meals via Shopee</p>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400 group-hover:text-brand-green"></i>
+                </button>
+
+                <button onclick="window.open('https://wa.me/6281234567890?text=Halo%20Admin,%20saya%20mau%20pesan%20Pesona%20Frozen', '_blank')" class="w-full flex items-center justify-between p-4 rounded-xl border-2 border-gray-100 hover:border-brand-green hover:bg-brand-green/5 transition-all group">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-[#25D366]/10 rounded-full flex items-center justify-center text-[#25D366]">
+                            <i data-lucide="snowflake" class="w-5 h-5"></i>
+                        </div>
+                        <div class="text-left">
+                            <h4 class="font-bold text-brand-black group-hover:text-brand-green transition-colors">Order Pesona Frozen</h4>
+                            <p class="text-xs text-gray-500">Frozen snacks via WhatsApp</p>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400 group-hover:text-brand-green"></i>
+                </button>
+
+                <button onclick="window.open('https://wa.me/6281234567890?text=Halo%20Admin,%20saya%20mau%20tanya%20untuk%20Bulk%20Order', '_blank')" class="w-full flex items-center justify-between p-4 rounded-xl border-2 border-gray-100 hover:border-brand-green hover:bg-brand-green/5 transition-all group">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-brand-gold/20 rounded-full flex items-center justify-center text-brand-gold">
+                            <i data-lucide="package" class="w-5 h-5 text-yellow-600"></i>
+                        </div>
+                        <div class="text-left">
+                            <h4 class="font-bold text-brand-black group-hover:text-brand-green transition-colors">Bulk Order</h4>
+                            <p class="text-xs text-gray-500">Large quantities via WhatsApp</p>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400 group-hover:text-brand-green"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         1. NAVBAR
+         Rounded horizontal navbar, logo bulat di tengah
+         ========================================== -->
+    <header class="fixed w-full top-4 z-50 px-4 transition-all duration-300" id="navbar">
+        <div class="max-w-6xl mx-auto bg-brand-dark text-white rounded-full px-8 py-3 flex justify-between items-center shadow-[0_10px_30px_rgba(0,0,0,0.15)] border border-white/5 relative backdrop-blur-md">
+            
+            <!-- Mobile Toggle -->
+            <button class="lg:hidden text-white hover:text-brand-green" id="mobile-menu-btn">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+
+            <!-- Menu Kiri -->
+            <nav class="hidden lg:flex space-x-8 text-sm font-semibold tracking-wide flex-1 justify-end pr-16">
+                <a href="#home" class="nav-link hover:text-brand-green transition-colors">Home</a>
+                <a href="#menu" class="nav-link hover:text-brand-green transition-colors">Menu</a>
+                <a href="#brand" class="nav-link hover:text-brand-green transition-colors">About</a>
+            </nav>
+
+            <!-- Center Logo Bulat -->
+            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-brand-cream p-[6px] rounded-full shadow-lg z-10 border-[3px] border-brand-dark">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-brand-green flex flex-col items-center justify-center bg-white overflow-hidden shadow-inner">
+                    <span class="font-display font-extrabold text-brand-green leading-none text-xl sm:text-2xl">PF</span>
+                    <span class="text-[7px] sm:text-[9px] font-bold tracking-widest text-brand-black uppercase mt-1 text-center leading-tight">Pesona<br>Frozen</span>
                 </div>
             </div>
 
-            <!-- Right Menu -->
-            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
-                <a href="#storage" class="nav-link hover:text-white transition-colors">Storage Tips</a>
-                <a href="#Location" class="nav-link hover:text-white transition-colors">Location</a>
-                <a href="#order" class="bg-brand-green hover:bg-brand-greenHover text-white px-6 py-2 rounded-full transition-colors shadow-lg shadow-brand-green/30 font-semibold">
+            <!-- Menu Kanan -->
+            <nav class="hidden lg:flex space-x-8 text-sm font-semibold tracking-wide flex-1 pl-16 items-center">
+                <a href="#location" class="nav-link hover:text-brand-green transition-colors">Location</a>
+                <a href="#contact" class="nav-link hover:text-brand-green transition-colors">Contact</a>
+                <button onclick="openPopup()" class="bg-brand-green text-white px-6 py-2.5 rounded-full hover:bg-green-600 transition-colors text-sm font-bold shadow-md shadow-brand-green/30">
                     Order Now
-                </a>
-            </div>
+                </button>
+            </nav>
+
+            <!-- Mobile Order Icon -->
+            <button onclick="openPopup()" class="lg:hidden bg-brand-green text-white p-2 rounded-full shadow-md">
+                <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+            </button>
         </div>
 
         <!-- Mobile Menu Dropdown -->
-        <div id="mobileMenu" class="hidden absolute top-20 left-4 right-4 bg-brand-dark rounded-2xl p-6 shadow-2xl flex-col space-y-4 text-center text-gray-300">
-            <a href="#home" class="hover:text-white block py-2">Home</a>
-            <a href="#about" class="hover:text-white block py-2">About</a>
-            <a href="#products" class="hover:text-white block py-2">Products</a>
-            <a href="#storage" class="hover:text-white block py-2">Storage Tips</a>
-            <a href="#order" class="bg-brand-green text-white px-6 py-3 rounded-full inline-block mt-4">Order Now</a>
+        <div id="mobile-menu" class="hidden absolute top-full left-4 right-4 mt-2 bg-brand-dark rounded-3xl shadow-2xl overflow-hidden flex flex-col items-center py-6 border border-white/10 lg:hidden backdrop-blur-xl">
+            <a href="#home" class="text-white py-3 w-full text-center hover:bg-white/5 font-semibold">Home</a>
+            <a href="#menu" class="text-white py-3 w-full text-center hover:bg-white/5 font-semibold">Menu</a>
+            <a href="#brand" class="text-white py-3 w-full text-center hover:bg-white/5 font-semibold">About</a>
+            <a href="#Location" class="text-white py-3 w-full text-center hover:bg-white/5 font-semibold">Location</a>
+            <a href="#contact" class="text-white py-3 w-full text-center hover:bg-white/5 font-semibold">Contact</a>
+            <button onclick="openPopup()" class="mt-4 bg-brand-green text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-brand-green/30">
+                Order Now
+            </button>
         </div>
-    </nav>
+    </header>
 
-    <!-- 🧊 HERO SECTION -->
-    <section id="home" class="pt-40 pb-20 px-4 md:px-8 min-h-screen flex items-center">
-        <div class="max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-12 items-center">
+    <!-- ==========================================
+         2. HERO SECTION
+         Layout 2 kolom. Teks kiri, gambar frame lingkaran kanan.
+         ========================================== -->
+    <section id="home" class="pt-40 pb-20 px-6 max-w-6xl mx-auto min-h-screen flex items-center relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             
-            <!-- Hero Left -->
-            <div class="space-y-8 text-center md:text-left">
-                <div class="inline-flex items-center space-x-2 bg-brand-green/10 text-brand-green px-4 py-2 rounded-full font-medium text-sm mb-4">
-                    <i class="ph-fill ph-sparkle text-brand-accent"></i>
-                    <span>Exclusive Frozen Meals, Just a Click Away</span>
+            <!-- Kiri: Teks -->
+            <div class="text-center lg:text-left order-2 lg:order-1 relative">
+                <div class="inline-flex items-center gap-2 bg-white/60 px-4 py-2 rounded-full mb-6 border border-brand-green/20">
+                    <i data-lucide="star" class="w-4 h-4 text-brand-gold fill-brand-gold"></i>
+                    <span class="text-xs font-bold tracking-widest text-brand-green uppercase">100% Halal Certified</span>
                 </div>
                 
-                <h1 class="font-heading text-5xl md:text-7xl font-bold leading-tight text-brand-dark">
+                <h1 class="text-5xl sm:text-6xl lg:text-7xl font-display font-extrabold text-brand-black leading-[1.1] mb-6">
                     Premium <br>
-                    <span class="text-brand-green relative inline-block">
-                        Indonesian Food
-                        <!-- Underline SVG accent -->
-                        <svg class="absolute w-full h-4 -bottom-1 left-0 text-brand-accent" viewBox="0 0 100 20" preserveAspectRatio="none">
-                            <path d="M0 15 Q 50 0 100 15" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-                        </svg>
-                    </span>
+                    <span class="text-brand-green relative">
+                        Indonesian
+                        <!-- Dekorasi garis bawah text -->
+                        <svg class="absolute w-full h-3 -bottom-1 left-0 text-brand-gold/40" viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M0,15 Q50,0 100,15" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>
+                    </span><br>
+                    Frozen Food
                 </h1>
                 
-                <p class="text-lg text-gray-600 max-w-md mx-auto md:mx-0">
-                    Sajikan hidangan khas Nusantara di rumah Anda. Authentic taste, ready anytime. Dibuat dengan resep rahasia dan rempah pilihan.
+                <p class="text-lg text-gray-600 mb-10 max-w-md mx-auto lg:mx-0 font-medium leading-relaxed">
+                    Authentic Indonesian taste, ready anytime from your freezer.
                 </p>
                 
-                <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
-                    <button class="bg-brand-dark hover:bg-black text-white px-8 py-3.5 rounded-full font-semibold transition-transform hover:-translate-y-1 shadow-lg w-full sm:w-auto">
-                        View Products
-                    </button>
-                    <button class="bg-cream-dark hover:bg-gray-200 text-brand-dark px-8 py-3.5 rounded-full font-semibold transition-transform hover:-translate-y-1 w-full sm:w-auto">
-                        Best Sellers
-                    </button>
-                </div>
-            </div>
-
-            <!-- Hero Right -->
-            <div class="relative w-full aspect-square max-w-[500px] mx-auto mt-12 md:mt-0">
-                <!-- Outer Red/Orange Blob (Japanese Sun vibe translated to local) -->
-                <div class="absolute inset-0 bg-brand-accent/20 rounded-full blur-3xl"></div>
-                <!-- Main Image Circle -->
-                <div class="relative w-full h-full bg-cream-dark rounded-full overflow-hidden border-[16px] border-white shadow-2xl flex items-center justify-center">
-                    <img src="https://i.pinimg.com/1200x/15/33/16/1533161b244ef814d8d6e3ffef885b13.jpg" alt="Sate Ayam Frozen" class="w-full h-full object-cover animate-spin-slow">
-                </div>
-                <!-- Floating Elements -->
-                <div class="absolute -left-8 top-1/4 bg-white p-3 rounded-2xl shadow-xl animate-float">
-                    <span class="text-2xl">🌶️</span>
-                </div>
-                <div class="absolute -right-4 bottom-1/4 bg-white p-3 rounded-2xl shadow-xl animate-float" style="animation-delay: 1s;">
-                    <span class="text-2xl">🌿</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 📖 ABOUT SECTION -->
-    <section id="about" class="py-24 px-4 md:px-8 relative bg-white">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16">
-            
-            <!-- Image Side -->
-            <div class="w-full md:w-1/2 relative">
-                <!-- Decorative Element -->
-                <div class="absolute -top-6 -left-6 w-32 h-32 bg-brand-accent/20 rounded-full blur-2xl"></div>
-                <!-- Main Image -->
-                <div class="relative rounded-[3rem] overflow-hidden shadow-2xl border-8 border-cream-dark">
-                    <img src="https://i.pinimg.com/736x/74/0b/88/740b884f64caad2306679050835baf09.jpg" alt="Proses Memasak Nusantara Frozen" class="w-full h-[450px] object-cover">
-                </div>
-                <!-- Floating Badge -->
-                <div class="absolute -bottom-8 -right-8 bg-brand-green text-white p-6 rounded-full shadow-xl w-36 h-36 flex flex-col items-center justify-center text-center border-[6px] border-white animate-float">
-                    <span class="font-heading font-bold text-4xl mb-1">7+</span>
-                    <span class="text-xs font-medium leading-tight">Tahun<br>Pengalaman</span>
-                </div>
-            </div>
-
-            <!-- Text Side -->
-            <div class="w-full md:w-1/2 space-y-6 text-center md:text-left">
-                <div class="inline-flex items-center space-x-2 bg-brand-accent/10 text-brand-accent px-4 py-2 rounded-full font-medium text-sm">
-                    <i class="ph-fill ph-book-open text-lg"></i>
-                    <span>Tentang Kami</span>
-                </div>
-                
-                <h2 class="font-heading text-4xl md:text-5xl font-bold text-brand-dark leading-tight">
-                    Membawa <span class="text-brand-green relative whitespace-nowrap">
-                        Cita Rasa Asli
-                        <svg class="absolute w-full h-3 -bottom-0 left-0 text-brand-accent/40" viewBox="0 0 100 20" preserveAspectRatio="none">
-                            <path d="M0 15 Q 50 0 100 15" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
-                        </svg>
-                    </span> <br>ke Meja Makan Anda
-                </h2>
-                
-                <p class="text-gray-600 leading-relaxed text-lg pt-2">
-                    Berawal dari resep warisan keluarga, Pesona Frozen hadir untuk menjawab kerinduan akan masakan autentik Indonesia di tengah kesibukan modern.
-                </p>
-                <p class="text-gray-600 leading-relaxed">
-                    Kami menggunakan teknologi modern <strong>blast freezing</strong> untuk mengunci nutrisi, kesegaran, dan kelezatan bumbu rempah tradisional tanpa menambahkan bahan pengawet buatan. Setiap hidangan disiapkan dengan dedikasi tinggi, seolah dimasak langsung dari dapur ibu.
-                </p>
-                
-                <!-- Value Checks -->
-                <div class="grid grid-cols-2 gap-4 pt-6">
-                    <div class="flex items-center space-x-3">
-                        <div class="bg-brand-green/10 p-2.5 rounded-xl text-brand-green">
-                            <i class="ph-bold ph-check text-xl"></i>
-                        </div>
-                        <span class="font-semibold text-brand-dark text-sm md:text-base">Resep Warisan Asli</span>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <div class="bg-brand-green/10 p-2.5 rounded-xl text-brand-green">
-                            <i class="ph-bold ph-check text-xl"></i>
-                        </div>
-                        <span class="font-semibold text-brand-dark text-sm md:text-base">Bahan Baku Premium</span>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <div class="bg-brand-green/10 p-2.5 rounded-xl text-brand-green">
-                            <i class="ph-bold ph-check text-xl"></i>
-                        </div>
-                        <span class="font-semibold text-brand-dark text-sm md:text-base">Tanpa Pengawet</span>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <div class="bg-brand-green/10 p-2.5 rounded-xl text-brand-green">
-                            <i class="ph-bold ph-check text-xl"></i>
-                        </div>
-                        <span class="font-semibold text-brand-dark text-sm md:text-base">Diproses Higienis</span>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </section>
-
-    <!-- 🍱 CATEGORY BAR -->
-    <section class="max-w-5xl mx-auto px-4 mt-8">
-        <div class="bg-brand-dark rounded-full p-2 flex overflow-x-auto no-scrollbar justify-between items-center shadow-xl">
-            <!-- Icon/Label Left -->
-            <div class="bg-cream text-brand-dark px-6 py-3 rounded-full font-bold flex items-center shrink-0">
-                <i class="ph-fill ph-fork-knife text-brand-green mr-2 text-xl"></i> Menu
-            </div>
-            
-            <!-- Tabs -->
-            <div class="flex space-x-2 px-4 text-gray-300 whitespace-nowrap">
-                <button class="category-tab active px-4 py-2 cursor-pointer transition-colors" onclick="setActiveTab(this, 'rice-meals')">Rice Meals</button>
-                <button class="category-tab px-4 py-2 cursor-pointer hover:text-white transition-colors" onclick="setActiveTab(this, 'snacks')">Snacks</button>
-                <button class="category-tab px-4 py-2 cursor-pointer hover:text-white transition-colors" onclick="setActiveTab(this, 'traditional-cakes')">Traditional Cakes</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- 🧾 PRODUCT GRID -->
-    <section id="products" class="py-24 px-4 md:px-8 min-h-[800px]">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-24 mt-16" id="productContainer">
-                
-                <!-- ================= RICE MEALS ================= -->
-                
-                <!-- Rendang -->
-                <div class="product-card flex flex-col relative bg-brand-darkCard rounded-[32px] pt-24 pb-8 px-6 items-center text-center transition-transform duration-300 hover:-translate-y-3 hover:shadow-2xl group" data-category="rice-meals">
-                    <button class="absolute top-4 right-4 w-10 h-10 bg-brand-dark rounded-full flex items-center justify-center text-brand-green hover:bg-brand-green hover:text-white transition-colors border border-gray-700">
-                        <i class="ph-bold ph-plus"></i>
-                    </button>
-                    <div class="absolute -top-16 w-40 h-40 rounded-full border-8 border-cream overflow-hidden shadow-float group-hover:scale-105 transition-transform duration-300 bg-brand-dark">
-                        <img src="https://images.unsplash.com/photo-1548943487-a2e4d43bcfc3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Rendang" class="w-full h-full object-cover">
-                    </div>
-                    <h3 class="font-heading text-white text-2xl font-bold mt-2">Rendang Padang</h3>
-                    <p class="text-gray-400 text-sm mt-3 mb-8 leading-relaxed">
-                        Daging sapi pilihan dimasak bumbu rempah asli Padang. Siap panaskan.
-                    </p>
-                    <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 w-3/4">
-                        <div class="bg-brand-green text-white font-bold py-3 px-8 text-lg rounded-sm shadow-lg relative flex items-center justify-center">
-                            <span class="absolute left-[-8px] top-0 border-t-[8px] border-r-[8px] border-t-transparent border-r-brand-greenHover"></span>
-                            Rp 65.000
-                            <span class="absolute right-[-8px] top-0 border-t-[8px] border-l-[8px] border-t-transparent border-l-brand-greenHover"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Ayam Geprek -->
-                <div class="product-card flex flex-col relative bg-brand-darkCard rounded-[32px] pt-24 pb-8 px-6 items-center text-center transition-transform duration-300 hover:-translate-y-3 hover:shadow-2xl group" data-category="rice-meals">
-                    <button class="absolute top-4 right-4 w-10 h-10 bg-brand-dark rounded-full flex items-center justify-center text-brand-green hover:bg-brand-green hover:text-white transition-colors border border-gray-700">
-                        <i class="ph-bold ph-plus"></i>
-                    </button>
-                    <div class="absolute -top-16 w-40 h-40 rounded-full border-8 border-cream overflow-hidden shadow-float group-hover:scale-105 transition-transform duration-300 bg-brand-dark">
-                        <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Ayam Geprek" class="w-full h-full object-cover">
-                    </div>
-                    <h3 class="font-heading text-white text-2xl font-bold mt-2">Ayam Geprek</h3>
-                    <p class="text-gray-400 text-sm mt-3 mb-8 leading-relaxed">
-                        Ayam krispi tanpa tulang dengan sambal bawang super pedas terpisah.
-                    </p>
-                    <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 w-3/4">
-                        <div class="bg-brand-green text-white font-bold py-3 px-8 text-lg rounded-sm shadow-lg relative flex items-center justify-center">
-                            <span class="absolute left-[-8px] top-0 border-t-[8px] border-r-[8px] border-t-transparent border-r-brand-greenHover"></span>
-                            Rp 35.000
-                            <span class="absolute right-[-8px] top-0 border-t-[8px] border-l-[8px] border-t-transparent border-l-brand-greenHover"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Pepes Ikan -->
-                <div class="product-card flex flex-col relative bg-brand-darkCard rounded-[32px] pt-24 pb-8 px-6 items-center text-center transition-transform duration-300 hover:-translate-y-3 hover:shadow-2xl group" data-category="rice-meals">
-                    <button class="absolute top-4 right-4 w-10 h-10 bg-brand-dark rounded-full flex items-center justify-center text-brand-green hover:bg-brand-green hover:text-white transition-colors border border-gray-700">
-                        <i class="ph-bold ph-plus"></i>
-                    </button>
-                    <div class="absolute -top-16 w-40 h-40 rounded-full border-8 border-cream overflow-hidden shadow-float group-hover:scale-105 transition-transform duration-300 bg-brand-dark">
-                        <img src="https://images.unsplash.com/photo-1598514982205-f36b96d1e8d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Pepes Ikan" class="w-full h-full object-cover">
-                    </div>
-                    <h3 class="font-heading text-white text-2xl font-bold mt-2">Pepes Ikan</h3>
-                    <p class="text-gray-400 text-sm mt-3 mb-8 leading-relaxed">
-                        Ikan segar dibalut bumbu kuning dan daun kemangi, dikukus dalam daun pisang.
-                    </p>
-                    <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 w-3/4">
-                        <div class="bg-brand-green text-white font-bold py-3 px-8 text-lg rounded-sm shadow-lg relative flex items-center justify-center">
-                            <span class="absolute left-[-8px] top-0 border-t-[8px] border-r-[8px] border-t-transparent border-r-brand-greenHover"></span>
-                            Rp 30.000
-                            <span class="absolute right-[-8px] top-0 border-t-[8px] border-l-[8px] border-t-transparent border-l-brand-greenHover"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Orek Tempe -->
-                <div class="product-card flex flex-col relative bg-brand-darkCard rounded-[32px] pt-24 pb-8 px-6 items-center text-center transition-transform duration-300 hover:-translate-y-3 hover:shadow-2xl group" data-category="rice-meals">
-                    <button class="absolute top-4 right-4 w-10 h-10 bg-brand-dark rounded-full flex items-center justify-center text-brand-green hover:bg-brand-green hover:text-white transition-colors border border-gray-700">
-                        <i class="ph-bold ph-plus"></i>
-                    </button>
-                    <div class="absolute -top-16 w-40 h-40 rounded-full border-8 border-cream overflow-hidden shadow-float group-hover:scale-105 transition-transform duration-300 bg-brand-dark">
-                        <img src="https://images.unsplash.com/photo-1627308595229-7830f5c9099f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Orek Tempe" class="w-full h-full object-cover">
-                    </div>
-                    <h3 class="font-heading text-white text-2xl font-bold mt-2">Orek Tempe</h3>
-                    <p class="text-gray-400 text-sm mt-3 mb-8 leading-relaxed">
-                        Tempe iris tipis dimasak manis pedas dengan karamelisasi gula merah.
-                    </p>
-                    <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 w-3/4">
-                        <div class="bg-brand-green text-white font-bold py-3 px-8 text-lg rounded-sm shadow-lg relative flex items-center justify-center">
-                            <span class="absolute left-[-8px] top-0 border-t-[8px] border-r-[8px] border-t-transparent border-r-brand-greenHover"></span>
-                            Rp 15.000
-                            <span class="absolute right-[-8px] top-0 border-t-[8px] border-l-[8px] border-t-transparent border-l-brand-greenHover"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Ikan Nila -->
-                <div class="product-card flex flex-col relative bg-brand-darkCard rounded-[32px] pt-24 pb-8 px-6 items-center text-center transition-transform duration-300 hover:-translate-y-3 hover:shadow-2xl group" data-category="rice-meals">
-                    <button class="absolute top-4 right-4 w-10 h-10 bg-brand-dark rounded-full flex items-center justify-center text-brand-green hover:bg-brand-green hover:text-white transition-colors border border-gray-700">
-                        <i class="ph-bold ph-plus"></i>
-                    </button>
-                    <div class="absolute -top-16 w-40 h-40 rounded-full border-8 border-cream overflow-hidden shadow-float group-hover:scale-105 transition-transform duration-300 bg-brand-dark">
-                        <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Ikan Nila" class="w-full h-full object-cover">
-                    </div>
-                    <h3 class="font-heading text-white text-2xl font-bold mt-2">Ikan Nila Bumbu</h3>
-                    <p class="text-gray-400 text-sm mt-3 mb-8 leading-relaxed">
-                        Ikan Nila utuh yang telah dimarinasi bumbu kuning. Siap digoreng renyah.
-                    </p>
-                    <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 w-3/4">
-                        <div class="bg-brand-green text-white font-bold py-3 px-8 text-lg rounded-sm shadow-lg relative flex items-center justify-center">
-                            <span class="absolute left-[-8px] top-0 border-t-[8px] border-r-[8px] border-t-transparent border-r-brand-greenHover"></span>
-                            Rp 40.000
-                            <span class="absolute right-[-8px] top-0 border-t-[8px] border-l-[8px] border-t-transparent border-l-brand-greenHover"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Ayam Serundeng -->
-                <div class="product-card flex flex-col relative bg-brand-darkCard rounded-[32px] pt-24 pb-8 px-6 items-center text-center transition-transform duration-300 hover:-translate-y-3 hover:shadow-2xl group" data-category="rice-meals">
-                    <button class="absolute top-4 right-4 w-10 h-10 bg-brand-dark rounded-full flex items-center justify-center text-brand-green hover:bg-brand-green hover:text-white transition-colors border border-gray-700">
-                        <i class="ph-bold ph-plus"></i>
-                    </button>
-                    <div class="absolute -top-16 w-40 h-40 rounded-full border-8 border-cream overflow-hidden shadow-float group-hover:scale-105 transition-transform duration-300 bg-brand-dark">
-                        <img src="https://images.unsplash.com/photo-1606085536481-9b7e7a7a2845?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Ayam Serundeng" class="w-full h-full object-cover">
-                    </div>
-                    <h3 class="font-heading text-white text-2xl font-bold mt-2">Ayam Serundeng</h3>
-                    <p class="text-gray-400 text-sm mt-3 mb-8 leading-relaxed">
-                        Ayam ungkep lengkap dengan serundeng kelapa gurih yang melimpah.
-                    </p>
-                    <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 w-3/4">
-                        <div class="bg-brand-green text-white font-bold py-3 px-8 text-lg rounded-sm shadow-lg relative flex items-center justify-center">
-                            <span class="absolute left-[-8px] top-0 border-t-[8px] border-r-[8px] border-t-transparent border-r-brand-greenHover"></span>
-                            Rp 38.000
-                            <span class="absolute right-[-8px] top-0 border-t-[8px] border-l-[8px] border-t-transparent border-l-brand-greenHover"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ================= SNACKS ================= -->
-
-                <!-- Risol Mayo -->
-                <div class="product-card hidden flex-col relative bg-brand-darkCard rounded-[32px] pt-24 pb-8 px-6 items-center text-center transition-transform duration-300 hover:-translate-y-3 hover:shadow-2xl group" data-category="snacks">
-                    <button class="absolute top-4 right-4 w-10 h-10 bg-brand-dark rounded-full flex items-center justify-center text-brand-green hover:bg-brand-green hover:text-white transition-colors border border-gray-700">
-                        <i class="ph-bold ph-plus"></i>
-                    </button>
-                    <div class="absolute -top-16 w-40 h-40 rounded-full border-8 border-cream overflow-hidden shadow-float group-hover:scale-105 transition-transform duration-300 bg-brand-dark">
-                        <img src="https://images.unsplash.com/photo-1628198758552-3ba49a37c0eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Risol Mayo" class="w-full h-full object-cover">
-                    </div>
-                    <h3 class="font-heading text-white text-2xl font-bold mt-2">Risol Mayo</h3>
-                    <p class="text-gray-400 text-sm mt-3 mb-8 leading-relaxed">
-                        Risol renyah isi smoked beef, telur rebus, dan lumeran saus mayones spesial.
-                    </p>
-                    <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 w-3/4">
-                        <div class="bg-brand-green text-white font-bold py-3 px-8 text-lg rounded-sm shadow-lg relative flex items-center justify-center">
-                            <span class="absolute left-[-8px] top-0 border-t-[8px] border-r-[8px] border-t-transparent border-r-brand-greenHover"></span>
-                            Rp 20.000
-                            <span class="absolute right-[-8px] top-0 border-t-[8px] border-l-[8px] border-t-transparent border-l-brand-greenHover"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sosis Solo -->
-                <div class="product-card hidden flex-col relative bg-brand-darkCard rounded-[32px] pt-24 pb-8 px-6 items-center text-center transition-transform duration-300 hover:-translate-y-3 hover:shadow-2xl group" data-category="snacks">
-                    <button class="absolute top-4 right-4 w-10 h-10 bg-brand-dark rounded-full flex items-center justify-center text-brand-green hover:bg-brand-green hover:text-white transition-colors border border-gray-700">
-                        <i class="ph-bold ph-plus"></i>
-                    </button>
-                    <div class="absolute -top-16 w-40 h-40 rounded-full border-8 border-cream overflow-hidden shadow-float group-hover:scale-105 transition-transform duration-300 bg-brand-dark">
-                        <img src="https://images.unsplash.com/photo-1606755456206-b25206cde27e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Sosis Solo" class="w-full h-full object-cover">
-                    </div>
-                    <h3 class="font-heading text-white text-2xl font-bold mt-2">Sosis Solo</h3>
-                    <p class="text-gray-400 text-sm mt-3 mb-8 leading-relaxed">
-                        Dadar telur lembut berisi daging ayam cincang manis gurih khas keraton Solo.
-                    </p>
-                    <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 w-3/4">
-                        <div class="bg-brand-green text-white font-bold py-3 px-8 text-lg rounded-sm shadow-lg relative flex items-center justify-center">
-                            <span class="absolute left-[-8px] top-0 border-t-[8px] border-r-[8px] border-t-transparent border-r-brand-greenHover"></span>
-                            Rp 25.000
-                            <span class="absolute right-[-8px] top-0 border-t-[8px] border-l-[8px] border-t-transparent border-l-brand-greenHover"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Bakwan Jagung -->
-                <div class="product-card hidden flex-col relative bg-brand-darkCard rounded-[32px] pt-24 pb-8 px-6 items-center text-center transition-transform duration-300 hover:-translate-y-3 hover:shadow-2xl group" data-category="snacks">
-                    <button class="absolute top-4 right-4 w-10 h-10 bg-brand-dark rounded-full flex items-center justify-center text-brand-green hover:bg-brand-green hover:text-white transition-colors border border-gray-700">
-                        <i class="ph-bold ph-plus"></i>
-                    </button>
-                    <div class="absolute -top-16 w-40 h-40 rounded-full border-8 border-cream overflow-hidden shadow-float group-hover:scale-105 transition-transform duration-300 bg-brand-dark">
-                        <img src="https://images.unsplash.com/photo-1598514982205-f36b96d1e8d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Bakwan Jagung" class="w-full h-full object-cover">
-                    </div>
-                    <h3 class="font-heading text-white text-2xl font-bold mt-2">Bakwan Jagung</h3>
-                    <p class="text-gray-400 text-sm mt-3 mb-8 leading-relaxed">
-                        Adonan jagung manis dan bumbu halus siap goreng untuk camilan renyah keluarga.
-                    </p>
-                    <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 w-3/4">
-                        <div class="bg-brand-green text-white font-bold py-3 px-8 text-lg rounded-sm shadow-lg relative flex items-center justify-center">
-                            <span class="absolute left-[-8px] top-0 border-t-[8px] border-r-[8px] border-t-transparent border-r-brand-greenHover"></span>
-                            Rp 15.000
-                            <span class="absolute right-[-8px] top-0 border-t-[8px] border-l-[8px] border-t-transparent border-l-brand-greenHover"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Pentol -->
-                <div class="product-card hidden flex-col relative bg-brand-darkCard rounded-[32px] pt-24 pb-8 px-6 items-center text-center transition-transform duration-300 hover:-translate-y-3 hover:shadow-2xl group" data-category="snacks">
-                    <button class="absolute top-4 right-4 w-10 h-10 bg-brand-dark rounded-full flex items-center justify-center text-brand-green hover:bg-brand-green hover:text-white transition-colors border border-gray-700">
-                        <i class="ph-bold ph-plus"></i>
-                    </button>
-                    <div class="absolute -top-16 w-40 h-40 rounded-full border-8 border-cream overflow-hidden shadow-float group-hover:scale-105 transition-transform duration-300 bg-brand-dark">
-                        <img src="https://images.unsplash.com/photo-1562565652-a8e8f80cb5ed?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Pentol" class="w-full h-full object-cover">
-                    </div>
-                    <h3 class="font-heading text-white text-2xl font-bold mt-2">Pentol Daging</h3>
-                    <p class="text-gray-400 text-sm mt-3 mb-8 leading-relaxed">
-                        Bakso sapi mini ala jajanan SD yang kenyal. Tersedia dengan bumbu kacang pedas.
-                    </p>
-                    <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 w-3/4">
-                        <div class="bg-brand-green text-white font-bold py-3 px-8 text-lg rounded-sm shadow-lg relative flex items-center justify-center">
-                            <span class="absolute left-[-8px] top-0 border-t-[8px] border-r-[8px] border-t-transparent border-r-brand-greenHover"></span>
-                            Rp 15.000
-                            <span class="absolute right-[-8px] top-0 border-t-[8px] border-l-[8px] border-t-transparent border-l-brand-greenHover"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Perkedel -->
-                <div class="product-card hidden flex-col relative bg-brand-darkCard rounded-[32px] pt-24 pb-8 px-6 items-center text-center transition-transform duration-300 hover:-translate-y-3 hover:shadow-2xl group" data-category="snacks">
-                    <button class="absolute top-4 right-4 w-10 h-10 bg-brand-dark rounded-full flex items-center justify-center text-brand-green hover:bg-brand-green hover:text-white transition-colors border border-gray-700">
-                        <i class="ph-bold ph-plus"></i>
-                    </button>
-                    <div class="absolute -top-16 w-40 h-40 rounded-full border-8 border-cream overflow-hidden shadow-float group-hover:scale-105 transition-transform duration-300 bg-brand-dark">
-                        <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Perkedel" class="w-full h-full object-cover">
-                    </div>
-                    <h3 class="font-heading text-white text-2xl font-bold mt-2">Perkedel Kentang</h3>
-                    <p class="text-gray-400 text-sm mt-3 mb-8 leading-relaxed">
-                        Olahan kentang dan daging cincang, dicelup telur siap goreng keemasan.
-                    </p>
-                    <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 w-3/4">
-                        <div class="bg-brand-green text-white font-bold py-3 px-8 text-lg rounded-sm shadow-lg relative flex items-center justify-center">
-                            <span class="absolute left-[-8px] top-0 border-t-[8px] border-r-[8px] border-t-transparent border-r-brand-greenHover"></span>
-                            Rp 20.000
-                            <span class="absolute right-[-8px] top-0 border-t-[8px] border-l-[8px] border-t-transparent border-l-brand-greenHover"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ================= TRADITIONAL CAKES ================= -->
-
-                <!-- Donat -->
-                <div class="product-card hidden flex-col relative bg-brand-darkCard rounded-[32px] pt-24 pb-8 px-6 items-center text-center transition-transform duration-300 hover:-translate-y-3 hover:shadow-2xl group" data-category="traditional-cakes">
-                    <button class="absolute top-4 right-4 w-10 h-10 bg-brand-dark rounded-full flex items-center justify-center text-brand-green hover:bg-brand-green hover:text-white transition-colors border border-gray-700">
-                        <i class="ph-bold ph-plus"></i>
-                    </button>
-                    <div class="absolute -top-16 w-40 h-40 rounded-full border-8 border-cream overflow-hidden shadow-float group-hover:scale-105 transition-transform duration-300 bg-brand-dark">
-                        <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Donat" class="w-full h-full object-cover">
-                    </div>
-                    <h3 class="font-heading text-white text-2xl font-bold mt-2">Donat Kampung</h3>
-                    <p class="text-gray-400 text-sm mt-3 mb-8 leading-relaxed">
-                        Donat kentang super empuk ala jadul, lengkap dengan gula halus terpisah.
-                    </p>
-                    <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 w-3/4">
-                        <div class="bg-brand-green text-white font-bold py-3 px-8 text-lg rounded-sm shadow-lg relative flex items-center justify-center">
-                            <span class="absolute left-[-8px] top-0 border-t-[8px] border-r-[8px] border-t-transparent border-r-brand-greenHover"></span>
-                            Rp 25.000
-                            <span class="absolute right-[-8px] top-0 border-t-[8px] border-l-[8px] border-t-transparent border-l-brand-greenHover"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Kue Pizza -->
-                <div class="product-card hidden flex-col relative bg-brand-darkCard rounded-[32px] pt-24 pb-8 px-6 items-center text-center transition-transform duration-300 hover:-translate-y-3 hover:shadow-2xl group" data-category="traditional-cakes">
-                    <button class="absolute top-4 right-4 w-10 h-10 bg-brand-dark rounded-full flex items-center justify-center text-brand-green hover:bg-brand-green hover:text-white transition-colors border border-gray-700">
-                        <i class="ph-bold ph-plus"></i>
-                    </button>
-                    <div class="absolute -top-16 w-40 h-40 rounded-full border-8 border-cream overflow-hidden shadow-float group-hover:scale-105 transition-transform duration-300 bg-brand-dark">
-                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Kue Pizza" class="w-full h-full object-cover">
-                    </div>
-                    <h3 class="font-heading text-white text-2xl font-bold mt-2">Kue Pizza Mini</h3>
-                    <p class="text-gray-400 text-sm mt-3 mb-8 leading-relaxed">
-                        Roti pizza empuk dengan topping sosis, keju, dan saus tomat khas rumahan.
-                    </p>
-                    <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 w-3/4">
-                        <div class="bg-brand-green text-white font-bold py-3 px-8 text-lg rounded-sm shadow-lg relative flex items-center justify-center">
-                            <span class="absolute left-[-8px] top-0 border-t-[8px] border-r-[8px] border-t-transparent border-r-brand-greenHover"></span>
-                            Rp 35.000
-                            <span class="absolute right-[-8px] top-0 border-t-[8px] border-l-[8px] border-t-transparent border-l-brand-greenHover"></span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- ⭐ FEATURE BAR -->
-    <section class="max-w-6xl mx-auto px-4 py-12">
-        <div class="bg-brand-dark rounded-[40px] p-6 flex flex-wrap justify-around items-center gap-6 shadow-xl relative">
-            
-            <!-- Central Badge (Decorative) -->
-            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-cream p-2 rounded-full border-4 border-brand-dark hidden md:block">
-                <div class="bg-brand-accent w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl">
-                    <i class="ph-fill ph-shield-check"></i>
-                </div>
-            </div>
-
-            <!-- Features -->
-            <div class="flex items-center text-white space-x-3 w-full sm:w-auto justify-center">
-                <i class="ph-fill ph-certificate text-3xl text-brand-accent"></i>
-                <span class="font-heading font-semibold tracking-wide">100% Halal</span>
-            </div>
-            <div class="flex items-center text-white space-x-3 w-full sm:w-auto justify-center">
-                <i class="ph-fill ph-snowflake text-3xl text-brand-green"></i>
-                <span class="font-heading font-semibold tracking-wide">Frozen Fresh</span>
-            </div>
-            <div class="w-16 h-16 hidden md:block"></div> <!-- Spacer for center badge -->
-            <div class="flex items-center text-white space-x-3 w-full sm:w-auto justify-center">
-                <i class="ph-fill ph-moped text-3xl text-brand-green"></i>
-                <span class="font-heading font-semibold tracking-wide">Fast Delivery</span>
-            </div>
-            <div class="flex items-center text-white space-x-3 w-full sm:w-auto justify-center">
-                <i class="ph-fill ph-leaf text-3xl text-brand-accent"></i>
-                <span class="font-heading font-semibold tracking-wide">No Preservatives</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- 🍽 PRODUCT SHOWCASE (ZIGZAG) -->
-    <section class="py-20 px-4 md:px-8 relative overflow-hidden">
-        <div class="max-w-5xl mx-auto space-y-24">
-            
-            <!-- Item 1 -->
-            <div class="flex flex-col md:flex-row items-center gap-12">
-                <div class="w-full md:w-1/2 text-center md:text-left">
-                    <h2 class="font-heading text-4xl font-bold text-brand-dark mb-4">Rendang Padang Authentic</h2>
-                    <p class="text-gray-600 leading-relaxed mb-6">
-                        Potongan daging sapi empuk yang dimasak selama berjam-jam dengan santan murni dan rempah-rempah pilihan. Proses pembekuan seketika (blast freezing) menjaga tekstur dan kedalaman rasanya utuh sampai ke piring Anda.
-                    </p>
-                    <a href="#" class="text-brand-green font-bold flex items-center justify-center md:justify-start hover:text-brand-greenHover">
-                        Order Varian Ini <i class="ph-bold ph-arrow-right ml-2"></i>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <a href="#menu" class="bg-brand-green hover:bg-green-600 text-white px-8 py-4 rounded-full font-bold transition-all shadow-lg shadow-brand-green/30 text-center">
+                        View Menu
                     </a>
-                </div>
-                <div class="w-full md:w-1/2 relative">
-                    <div class="bg-brand-accent/20 w-full h-full absolute inset-0 rounded-[3rem] -rotate-6 transform scale-90"></div>
-                    <img src="https://i.pinimg.com/736x/62/f7/f7/62f7f7b0a649babeb1ba35e604870be8.jpg" alt="Rendang Detail" class="relative rounded-[2rem] shadow-2xl object-cover h-[350px] w-full">
-                </div>
-            </div>
-
-            <!-- Item 2 (Reversed) -->
-            <div class="flex flex-col md:flex-row-reverse items-center gap-12">
-                <div class="w-full md:w-1/2 text-center md:text-left">
-                    <h2 class="font-heading text-4xl font-bold text-brand-dark mb-4">Ayam Geprek Sambal Bawang</h2>
-                    <p class="text-gray-600 leading-relaxed mb-6">
-                        Ayam fillet goreng tepung super krispi yang tidak melempem setelah dipanaskan. Dilengkapi dengan pouch terpisah berisi sambal bawang pedas nampol racikan khusus yang menggugah selera.
-                    </p>
-                    <a href="#" class="text-brand-green font-bold flex items-center justify-center md:justify-start hover:text-brand-greenHover">
-                        Order Varian Ini <i class="ph-bold ph-arrow-right ml-2"></i>
-                    </a>
-                </div>
-                <div class="w-full md:w-1/2 relative">
-                    <div class="bg-brand-green/20 w-full h-full absolute inset-0 rounded-[3rem] rotate-6 transform scale-90"></div>
-                    <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Ayam Geprek Detail" class="relative rounded-[2rem] shadow-2xl object-cover h-[350px] w-full">
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- 🧊 STORAGE INFO SECTION -->
-    <section id="storage" class="py-20 px-4 md:px-8">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16">
-            
-            <!-- Left: Icon Cards -->
-            <div class="w-full md:w-1/3 flex flex-col items-center space-y-12">
-                <div class="text-center mb-4 md:hidden">
-                    <h2 class="font-heading text-3xl font-bold">Penyimpanan & <br> Penyajian</h2>
-                </div>
-
-                <!-- Card 1 -->
-                <div class="bg-brand-dark text-white p-6 rounded-[2rem] shadow-xl w-64 text-center relative z-10 hover:-translate-y-2 transition-transform">
-                    <div class="bg-cream w-20 h-20 rounded-full flex items-center justify-center mx-auto -mt-16 mb-4 shadow-inner border-4 border-brand-dark">
-                        <i class="ph-fill ph-thermometer-cold text-4xl text-brand-green"></i>
-                    </div>
-                    <h4 class="font-heading font-bold text-lg mb-1">Simpan Beku</h4>
-                    <p class="text-sm text-gray-400">Keep Frozen -18°C</p>
-                </div>
-
-                <!-- Dotted Line Connector (Hidden on mobile) -->
-                <div class="hidden md:block w-0.5 h-16 border-l-2 border-dashed border-brand-accent/50 -my-12 z-0"></div>
-
-                <!-- Card 2 -->
-                <div class="bg-brand-dark text-white p-6 rounded-[2rem] shadow-xl w-64 text-center relative z-10 hover:-translate-y-2 transition-transform">
-                    <div class="bg-cream w-20 h-20 rounded-full flex items-center justify-center mx-auto -mt-16 mb-4 shadow-inner border-4 border-brand-dark">
-                        <i class="ph-fill ph-fire text-4xl text-brand-accent"></i>
-                    </div>
-                    <h4 class="font-heading font-bold text-lg mb-1">Panaskan Dulu</h4>
-                    <p class="text-sm text-gray-400">Heat Before Serving</p>
-                </div>
-            </div>
-
-            <!-- Right: Circular Display -->
-            <div class="w-full md:w-2/3 relative flex justify-center items-center h-[500px]">
-                <!-- Title for desktop -->
-                <h2 class="hidden md:block absolute -top-4 left-10 font-heading text-4xl font-bold z-20 bg-cream pr-4 text-brand-dark">
-                    Storage &<br>Serving Guide
-                </h2>
-
-                <!-- Dashed Circle -->
-                <div class="w-[400px] h-[400px] sm:w-[500px] sm:h-[500px] dashed-circle absolute animate-[spin_40s_linear_infinite]"></div>
-                
-                <!-- Main Center Image -->
-                <div class="w-64 h-64 sm:w-80 sm:h-80 bg-brand-dark rounded-full overflow-hidden border-8 border-brand-dark shadow-2xl z-10 relative">
-                    <img src="https://images.unsplash.com/photo-1615486171448-47209930fca6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Plated Food" class="w-full h-full object-cover">
-                    <!-- Overlay text inside circle -->
-                    <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-white p-6 text-center">
-                        <span class="font-heading font-bold text-xl mb-2">10 Menit</span>
-                        <span class="text-sm">Siap Dihidangkan</span>
-                    </div>
-                </div>
-
-                <!-- Decorative floating icons/minis -->
-                <div class="absolute top-10 right-20 bg-white p-3 rounded-full shadow-lg z-20 animate-float"><i class="ph-fill ph-cooking-pot text-2xl text-brand-accent"></i></div>
-                <div class="absolute bottom-10 left-20 bg-white p-3 rounded-full shadow-lg z-20 animate-float" style="animation-delay: 2s;"><i class="ph-fill ph-clock text-2xl text-brand-green"></i></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 📍 LOCATION & BRANCHES -->
-    <section id="Location" class="py-20 px-4 md:px-8 relative">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-12">
-                <div class="inline-flex items-center space-x-2 bg-brand-green/10 text-brand-green px-4 py-2 rounded-full font-medium text-sm mb-4">
-                    <i class="ph-fill ph-map-pin text-brand-accent"></i>
-                    <span>Kunjungi Toko Kami</span>
-                </div>
-                <h2 class="font-heading text-4xl md:text-5xl font-bold text-brand-dark mb-4">Lokasi Kami</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto leading-relaxed">Selain pesan antar, Anda juga bisa mengambil langsung produk kami di toko offline. Kunjungi cabang utama kami di bawah ini.</p>
-            </div>
-
-            <div class="grid lg:grid-cols-2 gap-8 items-center bg-white p-6 md:p-10 rounded-[3rem] shadow-2xl border-4 border-cream-dark">
-                <!-- Info Address -->
-                <div class="space-y-8 px-2 md:px-4">
-                    <!-- Cabang Utama -->
-                    <div class="flex items-start space-x-5">
-                        <div class="bg-brand-green/10 p-4 rounded-2xl text-brand-green shrink-0">
-                            <i class="ph-fill ph-storefront text-3xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-heading font-bold text-xl text-brand-dark mb-1">Pesona Frozen - Pusat</h4>
-                            <p class="text-gray-600 text-sm leading-relaxed mb-2">Jl. Jendral Sudirman No. 45, Kompleks Ruko Niaga, Kota Bekasi, Jawa Barat 17148</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Jam Operasional -->
-                    <div class="flex items-start space-x-5">
-                        <div class="bg-brand-green/10 p-4 rounded-2xl text-brand-green shrink-0">
-                            <i class="ph-fill ph-clock text-3xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-heading font-bold text-xl text-brand-dark mb-1">Jam Operasional</h4>
-                            <p class="text-gray-600 text-sm">Setiap Hari: 10.00 - 16.00 WIB</p>
-                            <p class="text-brand-accent text-sm font-semibold mt-1 text-red-600">TUTUP pada hari libur nasional</p>
-                        </div>
-                    </div>
-
-                    <!-- Button Maps -->
-                    <div class="pt-4">
-                        <a href="#" class="inline-flex items-center space-x-2 bg-brand-dark hover:bg-black text-white px-8 py-3.5 rounded-full font-semibold transition-transform hover:-translate-y-1 shadow-lg w-full sm:w-auto justify-center">
-                            <span>Buka di Google Maps</span>
-                            <i class="ph-bold ph-arrow-up-right"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Google Maps Embed -->
-                <div class="h-[400px] w-full rounded-[2rem] overflow-hidden shadow-inner border-4 border-cream">
-                    <!-- Menggunakan Iframe Google Maps Kota Bekasi sebagai contoh -->
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126920.24036239162!2d106.91223295!3d-6.2349887!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698c6900964f69%3A0xd004953ae113f809!2sKota%20Bks%2C%20Jawa%20Barat!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
-                        width="100%" 
-                        height="100%" 
-                        style="border:0;" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 📩 CONTACT WHATSAPP -->
-    <section id="order" class="py-20 px-4 md:px-8">
-        <div class="max-w-4xl mx-auto">
-            <!-- Form Card with Background -->
-            <div class="relative rounded-[3rem] overflow-hidden shadow-2xl min-h-[400px] flex items-center justify-center p-8 md:p-16">
-                <!-- Blurred Background -->
-                <div class="absolute inset-0 bg-[url('https://i.pinimg.com/736x/fb/de/9f/fbde9fdd83458f09ce83a79dd8b17028.jpg')] bg-cover bg-center"></div>
-                <!-- Gradient Overlay -->
-                <div class="absolute inset-0 bg-gradient-to-r from-brand-dark/90 to-brand-green/80"></div>
-                
-                <!-- Content -->
-                <div class="relative z-10 w-full max-w-lg text-center">
-                    <div class="mb-10">
-                        <h2 class="font-heading text-4xl font-bold text-white mb-2">Pesan Sekarang</h2>
-                        <p class="text-cream-dark">Klik tombol di bawah ini untuk langsung terhubung dengan admin kami via WhatsApp.</p>
-                    </div>
-
-                    <!-- WhatsApp Button -->
-                    <a href="https://wa.me/6281234567890?text=Halo%20Pesona%20Frozen,%20saya%20ingin%20memesan%20produk" target="_blank" class="inline-flex items-center justify-center space-x-3 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold text-xl px-12 py-5 rounded-full transition-transform hover:-translate-y-1 shadow-lg shadow-[#25D366]/40 w-full md:w-auto">
-                        <i class="ph-fill ph-whatsapp-logo text-3xl"></i>
-                        <span>Chat via WhatsApp</span>
+                    <a href="#showcase" class="bg-white border-2 border-brand-dark hover:bg-brand-dark hover:text-white text-brand-black px-8 py-4 rounded-full font-bold transition-all flex items-center justify-center gap-2">
+                        Best Seller <i data-lucide="arrow-down" class="w-4 h-4"></i>
                     </a>
                 </div>
             </div>
+
+            <!-- Kanan: Frame Lingkaran Besar -->
+            <div class="order-1 lg:order-2 relative h-[400px] sm:h-[500px] w-full flex items-center justify-center">
+                <!-- Large decorative circle mimicking the reference -->
+                <div class="absolute inset-2 bg-brand-green/10 rounded-full"></div>
+                <div class="absolute inset-8 border-4 border-dashed border-brand-gold/30 rounded-full spin-slow"></div>
+                
+                <!-- Main Food Image in Circular Frame -->
+                <div class="relative w-[75%] h-[75%] rounded-full overflow-hidden shadow-2xl border-[12px] border-white z-20 bg-brand-cream">
+                    <img src="https://i.pinimg.com/1200x/15/33/16/1533161b244ef814d8d6e3ffef885b13.jpg" alt="" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+                </div>
+
+                <!-- Floating Decor / Ingredients -->
+                <div class="absolute top-10 right-10 z-30 bg-white rounded-full p-3 shadow-lg border border-brand-cream floating">
+                    <img src="https://i.pinimg.com/1200x/b7/30/c0/b730c0ef7de427c94415813aa65ed0ef.jpg" alt="Pempek" class="w-12 h-12 object-cover rounded-full">
+                </div>
+                <div class="absolute bottom-16 left-8 z-30 bg-white rounded-full p-3 shadow-lg border border-brand-cream floating" style="animation-delay: 2s;">
+                    <img src="https://i.pinimg.com/1200x/27/ae/1a/27ae1a5577d1b2ec0711537a0a75523a.jpg" alt="Risol" class="w-14 h-14 object-cover rounded-full">
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- 📰 FOOTER -->
-    <footer class="bg-brand-dark text-gray-400 pt-20 pb-10 px-4 md:px-8 mt-12 border-t-[16px] border-brand-green relative overflow-hidden">
+    <!-- ==========================================
+         3. FEATURE BAR
+         Horizontal icon bar (Halal, Fresh, Fast, No Preservatives)
+         ========================================== -->
+    <section class="max-w-5xl mx-auto px-6 mb-20 relative z-20">
+        <div class="bg-white rounded-full py-5 px-6 md:px-12 flex flex-wrap md:flex-nowrap justify-around items-center gap-4 shadow-xl border border-brand-cream">
+            <div class="flex items-center gap-3 text-brand-black">
+                <div class="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green"><i data-lucide="shield-check" class="w-5 h-5"></i></div>
+                <span class="font-bold text-xs md:text-sm uppercase tracking-wider">Halal Food</span>
+            </div>
+            <div class="hidden md:block w-px h-8 bg-gray-200"></div>
+            <div class="flex items-center gap-3 text-brand-black">
+                <div class="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green"><i data-lucide="snowflake" class="w-5 h-5"></i></div>
+                <span class="font-bold text-xs md:text-sm uppercase tracking-wider">Fresh Frozen Quality</span>
+            </div>
+            <div class="hidden md:block w-px h-8 bg-gray-200"></div>
+            <div class="flex items-center gap-3 text-brand-black">
+                <div class="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green"><i data-lucide="truck" class="w-5 h-5"></i></div>
+                <span class="font-bold text-xs md:text-sm uppercase tracking-wider">Fast Delivery</span>
+            </div>
+            <div class="hidden md:block w-px h-8 bg-gray-200"></div>
+            <div class="flex items-center gap-3 text-brand-black">
+                <div class="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green"><i data-lucide="leaf" class="w-5 h-5"></i></div>
+                <span class="font-bold text-xs md:text-sm uppercase tracking-wider">No Preservatives</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         4. CATEGORY BAR
+         Horizontal selector (Rice Meals, Frozen Snacks, dll)
+         ========================================== -->
+    <section id="menu" class="pt-10 max-w-5xl mx-auto px-4 z-20 relative">
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-display font-bold text-brand-black">Explore Our Menu</h2>
+        </div>
         
-        <!-- Decorative graphic right corner -->
-        <div class="absolute -bottom-20 -right-20 w-80 h-80 bg-brand-green rounded-full blur-3xl opacity-10"></div>
+        <div class="bg-white rounded-full p-2 sm:p-3 shadow-lg overflow-x-auto hide-scrollbar border border-brand-cream flex items-center justify-start sm:justify-center min-w-max md:min-w-0">
+            <div class="flex space-x-2 px-2 flex-grow" id="category-filters">
+                <button class="filter-btn active bg-brand-green/10 text-brand-green border-b-2 border-brand-green px-5 py-2.5 rounded-full font-bold text-xs sm:text-sm transition-all whitespace-nowrap" data-filter="all">All Menu</button>
+                <button class="filter-btn text-gray-500 hover:text-brand-green hover:bg-brand-green/5 border-b-2 border-transparent px-5 py-2.5 rounded-full font-semibold text-xs sm:text-sm transition-all whitespace-nowrap" data-filter="rice">Rice Meals</button>
+                <button class="filter-btn text-gray-500 hover:text-brand-green hover:bg-brand-green/5 border-b-2 border-transparent px-5 py-2.5 rounded-full font-semibold text-xs sm:text-sm transition-all whitespace-nowrap" data-filter="snack">Frozen Snacks</button>
+                <button class="filter-btn text-gray-500 hover:text-brand-green hover:bg-brand-green/5 border-b-2 border-transparent px-5 py-2.5 rounded-full font-semibold text-xs sm:text-sm transition-all whitespace-nowrap" data-filter="cake">Traditional Cakes</button>
+                <button class="filter-btn text-gray-500 hover:text-brand-green hover:bg-brand-green/5 border-b-2 border-transparent px-5 py-2.5 rounded-full font-semibold text-xs sm:text-sm transition-all whitespace-nowrap" data-filter="spicy">Spicy Menu</button>
+                <button class="filter-btn text-gray-500 hover:text-brand-green hover:bg-brand-green/5 border-b-2 border-transparent px-5 py-2.5 rounded-full font-semibold text-xs sm:text-sm transition-all whitespace-nowrap" data-filter="kids">Kids Menu</button>
+                <button class="filter-btn text-gray-500 hover:text-brand-green hover:bg-brand-green/5 border-b-2 border-transparent px-5 py-2.5 rounded-full font-semibold text-xs sm:text-sm transition-all whitespace-nowrap" data-filter="best">Best Seller</button>
+            </div>
+        </div>
+    </section>
 
-        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 mb-16 relative z-10 text-center md:text-left">
+    <!-- ==========================================
+         5. PRODUCT GRID
+         3x2 card produk, background gelap, rounded, price bar hijau
+         ========================================== -->
+    <section class="pb-20 max-w-6xl mx-auto px-6 relative mt-16">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16" id="menu-grid">
             
-            <!-- Col 1: Logo & Info -->
-            <div class="space-y-6 flex flex-col items-center md:items-start">
-                <div class="bg-cream w-16 h-16 rounded-full flex items-center justify-center border-4 border-brand-dark">
-                    <div class="bg-brand-green w-12 h-12 rounded-full flex items-center justify-center text-white font-heading font-bold text-xl">
-                        PF
+            <!-- Item 1: Risol Mayo Frozen -->
+            <div class="product-card menu-item flex flex-col items-center relative mt-8" data-category="snack best kids">
+                <div class="bg-brand-card w-full rounded-3xl pt-24 px-6 pb-14 flex flex-col items-center text-center shadow-xl relative z-10 border border-white/5">
+                    <!-- Food Image Top -->
+                    <div class="absolute -top-16 w-36 h-36 rounded-2xl overflow-hidden shadow-2xl border-4 border-brand-card bg-white transform rotate-3 transition-transform duration-300">
+                        <img src="https://images.unsplash.com/photo-1606357774887-84615024e0b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="" class="w-full h-full object-cover">
                     </div>
+                    <h3 class="text-white font-display font-bold text-xl mb-2">Risol Mayo Frozen</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed">Crispy skin filled with smoked beef, egg, and our signature melting mayonnaise.</p>
                 </div>
-                <p class="text-sm leading-relaxed max-w-xs">
-                    Pesona Frozen menyajikan cita rasa asli Indonesia yang praktis, higienis, dan tanpa bahan pengawet. Kami mengirimkan kebahagiaan ke meja makan Anda.
-                </p>
-                <div class="flex space-x-4">
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-brand-green hover:text-white transition-colors"><i class="ph-fill ph-instagram-logo"></i></a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-brand-green hover:text-white transition-colors"><i class="ph-fill ph-facebook-logo"></i></a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-brand-green hover:text-white transition-colors"><i class="ph-fill ph-tiktok-logo"></i></a>
-                </div>
-            </div>
-
-            <!-- Col 2: Illustration (Center) -->
-            <div class="flex justify-center items-center">
-                <div class="w-48 h-48 rounded-full bg-gray-800 p-2 border border-gray-700">
-                    <img src="assets/img/logo.png" alt="Brand Illustration" class="w-full h-full rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-500">
+                <!-- Green Price Bar -->
+                <div class="bg-brand-green w-[85%] -mt-6 py-4 rounded-b-2xl shadow-lg relative z-0 flex justify-center items-center">
+                    <span class="text-white font-bold tracking-wide">Rp 25.000</span>
+                    <button onclick="openPopup()" class="absolute -right-3 w-10 h-10 bg-white text-brand-green rounded-full flex items-center justify-center hover:bg-brand-dark hover:text-white transition-colors shadow-md">
+                        <i data-lucide="plus" class="w-5 h-5"></i>
+                    </button>
                 </div>
             </div>
 
-            <!-- Col 3: Newsletter -->
-            <div class="space-y-6 flex flex-col items-center md:items-start">
-                <h3 class="font-heading text-white text-xl font-bold uppercase tracking-widest">Subscribe To Newsletter</h3>
-                <p class="text-sm">Dapatkan info promo spesial dan rilis menu baru kami langsung di email Anda.</p>
-                <div class="flex w-full max-w-sm relative">
-                    <input type="email" placeholder="ENTER YOUR EMAIL..." class="w-full bg-gray-800 text-white px-6 py-4 rounded-full focus:outline-none focus:ring-2 focus:ring-brand-green text-sm border border-gray-700">
-                    <button class="absolute right-2 top-2 bottom-2 bg-brand-accent hover:bg-yellow-500 text-brand-dark w-10 rounded-full flex items-center justify-center transition-colors">
-                        <i class="ph-bold ph-arrow-right"></i>
+            <!-- Item 2: Pempek Palembang -->
+            <div class="product-card menu-item flex flex-col items-center relative mt-8" data-category="snack spicy best">
+                <div class="bg-brand-card w-full rounded-3xl pt-24 px-6 pb-14 flex flex-col items-center text-center shadow-xl relative z-10 border border-white/5">
+                    <div class="absolute -top-16 w-36 h-36 rounded-2xl overflow-hidden shadow-2xl border-4 border-brand-card bg-white transform -rotate-2 transition-transform duration-300">
+                        <img src="https://images.unsplash.com/photo-1625937329935-287ada73a812?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-white font-display font-bold text-xl mb-2">Pempek Palembang</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed">Authentic mackerel fish cake served with dark, sweet, and spicy vinegar sauce.</p>
+                </div>
+                <div class="bg-brand-green w-[85%] -mt-6 py-4 rounded-b-2xl shadow-lg relative z-0 flex justify-center items-center">
+                    <span class="text-white font-bold tracking-wide">Rp 35.000</span>
+                    <button onclick="openPopup()" class="absolute -right-3 w-10 h-10 bg-white text-brand-green rounded-full flex items-center justify-center hover:bg-brand-dark hover:text-white transition-colors shadow-md">
+                        <i data-lucide="plus" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Item 3: Pastel Ayam -->
+            <div class="product-card menu-item flex flex-col items-center relative mt-8" data-category="snack cake kids">
+                <div class="bg-brand-card w-full rounded-3xl pt-24 px-6 pb-14 flex flex-col items-center text-center shadow-xl relative z-10 border border-white/5">
+                    <div class="absolute -top-16 w-36 h-36 rounded-2xl overflow-hidden shadow-2xl border-4 border-brand-card bg-white transform rotate-2 transition-transform duration-300">
+                        <img src="https://images.unsplash.com/photo-1626082895617-2c63394a4ea3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-white font-display font-bold text-xl mb-2">Pastel Ayam</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed">Flaky pastry stuffed with savory chicken, potatoes, carrots, and boiled egg.</p>
+                </div>
+                <div class="bg-brand-green w-[85%] -mt-6 py-4 rounded-b-2xl shadow-lg relative z-0 flex justify-center items-center">
+                    <span class="text-white font-bold tracking-wide">Rp 28.000</span>
+                    <button onclick="openPopup()" class="absolute -right-3 w-10 h-10 bg-white text-brand-green rounded-full flex items-center justify-center hover:bg-brand-dark hover:text-white transition-colors shadow-md">
+                        <i data-lucide="plus" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Item 4: Siomay Bandung -->
+            <div class="product-card menu-item flex flex-col items-center relative mt-8" data-category="snack best">
+                <div class="bg-brand-card w-full rounded-3xl pt-24 px-6 pb-14 flex flex-col items-center text-center shadow-xl relative z-10 border border-white/5">
+                    <div class="absolute -top-16 w-36 h-36 rounded-2xl overflow-hidden shadow-2xl border-4 border-brand-card bg-white transform -rotate-3 transition-transform duration-300">
+                        <img src="https://images.unsplash.com/photo-1496116218417-1a781b1c416c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-white font-display font-bold text-xl mb-2">Siomay Bandung</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed">Premium dimsum-style siomay stuffed with shrimp and chicken, includes peanut sauce.</p>
+                </div>
+                <div class="bg-brand-green w-[85%] -mt-6 py-4 rounded-b-2xl shadow-lg relative z-0 flex justify-center items-center">
+                    <span class="text-white font-bold tracking-wide">Rp 30.000</span>
+                    <button onclick="openPopup()" class="absolute -right-3 w-10 h-10 bg-white text-brand-green rounded-full flex items-center justify-center hover:bg-brand-dark hover:text-white transition-colors shadow-md">
+                        <i data-lucide="plus" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Item 5: Cireng Isi -->
+            <div class="product-card menu-item flex flex-col items-center relative mt-8" data-category="snack spicy">
+                <div class="bg-brand-card w-full rounded-3xl pt-24 px-6 pb-14 flex flex-col items-center text-center shadow-xl relative z-10 border border-white/5">
+                    <div class="absolute -top-16 w-36 h-36 rounded-2xl overflow-hidden shadow-2xl border-4 border-brand-card bg-white transform rotate-1 transition-transform duration-300">
+                        <img src="https://images.unsplash.com/photo-1599818816766-3b9e4a3c1092?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-white font-display font-bold text-xl mb-2">Cireng Isi Spicy</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed">Chewy fried tapioca snack stuffed with spicy shredded chicken.</p>
+                </div>
+                <div class="bg-brand-green w-[85%] -mt-6 py-4 rounded-b-2xl shadow-lg relative z-0 flex justify-center items-center">
+                    <span class="text-white font-bold tracking-wide">Rp 18.000</span>
+                    <button onclick="openPopup()" class="absolute -right-3 w-10 h-10 bg-white text-brand-green rounded-full flex items-center justify-center hover:bg-brand-dark hover:text-white transition-colors shadow-md">
+                        <i data-lucide="plus" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Item 6: Nasi Goreng Frozen -->
+            <div class="product-card menu-item flex flex-col items-center relative mt-8" data-category="rice kids">
+                <div class="bg-brand-card w-full rounded-3xl pt-24 px-6 pb-14 flex flex-col items-center text-center shadow-xl relative z-10 border border-white/5">
+                    <div class="absolute -top-16 w-36 h-36 rounded-2xl overflow-hidden shadow-2xl border-4 border-brand-card bg-white transform -rotate-1 transition-transform duration-300">
+                        <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-white font-display font-bold text-xl mb-2">Nasi Goreng Frozen</h3>
+                    <p class="text-gray-400 text-xs leading-relaxed">Pre-cooked fried rice with chicken chunks, just heat and serve.</p>
+                </div>
+                <div class="bg-brand-green w-[85%] -mt-6 py-4 rounded-b-2xl shadow-lg relative z-0 flex justify-center items-center">
+                    <span class="text-white font-bold tracking-wide">Rp 22.000</span>
+                    <button onclick="openPopup()" class="absolute -right-3 w-10 h-10 bg-white text-brand-green rounded-full flex items-center justify-center hover:bg-brand-dark hover:text-white transition-colors shadow-md">
+                        <i data-lucide="plus" class="w-5 h-5"></i>
                     </button>
                 </div>
             </div>
 
         </div>
+    </section>
 
-        <div class="text-center text-xs text-gray-600 border-t border-gray-800 pt-8 mt-8">
-            <p>&copy; 2026 Pesona Frozen Food. All rights reserved. Crafted with lufikaZkl30.</p>
+    <!-- ==========================================
+         6. PRODUCT SHOWCASE
+         Zigzag layout, 3 makanan unggulan (Risol, Pempek, Pastel)
+         ========================================== -->
+    <section id="showcase" class="py-20 max-w-6xl mx-auto px-6 relative overflow-hidden bg-white rounded-[3rem] shadow-sm my-10">
+        <div class="text-center mb-16">
+            <h2 class="text-sm font-bold tracking-widest text-brand-green uppercase mb-2">Chef's Recommendation</h2>
+            <h3 class="text-4xl font-display font-bold text-brand-black">Our Signature Taste</h3>
+        </div>
+
+        <div class="flex flex-col md:flex-row items-center justify-center gap-12 lg:gap-10">
+            
+            <!-- Kiri: Risol Mayo & Pastel Teks -->
+            <div class="flex-1 space-y-20 text-center md:text-right z-10 w-full">
+                <div>
+                    <h3 class="text-2xl font-display font-bold text-brand-black mb-2 hover:text-brand-green transition-colors">Risol Mayo</h3>
+                    <p class="text-gray-500 text-sm max-w-xs mx-auto md:ml-auto md:mr-0 leading-relaxed">Crispy breaded skin outside, generous melting mayo, smoked beef, and egg inside. A crowd favorite for any occasion.</p>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-display font-bold text-brand-black mb-2 hover:text-brand-green transition-colors">Pastel Ayam</h3>
+                    <p class="text-gray-500 text-sm max-w-xs mx-auto md:ml-auto md:mr-0 leading-relaxed">Classic Indonesian flaky pastry stuffed with savory chicken, potatoes, carrots, and boiled egg. Golden perfection.</p>
+                </div>
+            </div>
+
+            <!-- Tengah: Pempek Gambar Besar + Floating Shadow -->
+            <div class="flex-shrink-0 relative w-64 h-64 md:w-80 md:h-80 z-20 group">
+                <!-- Decorative background dash -->
+                <div class="absolute inset-0 border-2 border-brand-green border-dashed rounded-full spin-slow opacity-20"></div>
+                <!-- Main Center Image -->
+                <img src="https://images.unsplash.com/photo-1625937329935-287ada73a812?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="" class="absolute inset-4 object-cover rounded-full shadow-[0_20px_40px_rgba(0,0,0,0.2)] group-hover:scale-105 transition-transform duration-500 z-10">
+                
+                <!-- Floating elements for visual effect -->
+                <div class="absolute -top-4 right-10 w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center floating text-brand-green border border-brand-cream z-20"><i data-lucide="award"></i></div>
+            </div>
+
+            <!-- Kanan: Pempek Teks & Ruang Kosong -->
+            <div class="flex-1 space-y-20 text-center md:text-left z-10 w-full flex flex-col justify-center">
+                <div class="mt-10 md:mt-0">
+                    <h3 class="text-2xl font-display font-bold text-brand-black mb-2 hover:text-brand-green transition-colors">Pempek Palembang</h3>
+                    <p class="text-gray-500 text-sm max-w-xs mx-auto md:ml-0 leading-relaxed">Made from authentic mackerel fish, served with traditional sweet, sour, and spicy dark vinegar sauce (Cuko). The real taste of Sumatra.</p>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- ==========================================
+         7. BRAND SECTION (Pemisah Produk)
+         2 Card besar berdampingan (Food vs Frozen)
+         ========================================== -->
+    <section id="brand" class="py-16 max-w-6xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- Card 1: Pesona Food -->
+            <div class="bg-white rounded-[2rem] p-10 shadow-xl border border-brand-cream flex flex-col items-center text-center hover:shadow-2xl transition-shadow group">
+                <div class="w-16 h-16 bg-brand-green/10 text-brand-green rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <i data-lucide="shopping-bag" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-3xl font-display font-bold text-brand-black mb-3">Pesona Food</h3>
+                <p class="text-gray-500 mb-8 font-medium">Ready to eat meals, cooked fresh and delivered warm to your doorstep.</p>
+                <button onclick="window.open('https://shopee.co.id', '_blank')" class="mt-auto bg-brand-black hover:bg-brand-green text-white px-8 py-3 rounded-full font-bold transition-colors w-full sm:w-auto">
+                    Order on Shopee
+                </button>
+            </div>
+
+            <!-- Card 2: Pesona Frozen -->
+            <div class="bg-brand-card text-white rounded-[2rem] p-10 shadow-xl border border-white/5 flex flex-col items-center text-center hover:shadow-2xl transition-shadow group relative overflow-hidden">
+                <div class="absolute inset-0 bg-brand-green/5 opacity-50"></div>
+                <div class="w-16 h-16 bg-white/10 text-brand-green rounded-full flex items-center justify-center mb-6 relative z-10 group-hover:scale-110 transition-transform border border-brand-green/30">
+                    <i data-lucide="snowflake" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-3xl font-display font-bold mb-3 relative z-10">Pesona Frozen</h3>
+                <p class="text-gray-400 mb-8 font-medium relative z-10">Frozen snacks ready anytime. Stock up your freezer with our authentic recipes.</p>
+                <button onclick="window.open('https://wa.me/6281234567890', '_blank')" class="mt-auto bg-brand-green hover:bg-green-600 text-white px-8 py-3 rounded-full font-bold transition-colors relative z-10 w-full sm:w-auto shadow-lg shadow-brand-green/20">
+                    Order via WhatsApp
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==========================================
+         8. STORAGE INFO SECTION
+         Kiri: 2 card icon. Kanan: Gambar dalam lingkaran dashed.
+         ========================================== -->
+    <section class="py-20 relative bg-white border-y border-brand-cream">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-center gap-16 md:gap-32">
+                
+                <!-- Kiri: 2 Card Icon -->
+                <div class="flex flex-col items-center gap-8 relative">
+                    <!-- Garis penghubung putus-putus -->
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-full w-[2px] bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMiIgaGVpZ2h0PSI4IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIyIiBoZWlnaHQ9IjQiIGZpbGw9IiNjY2MiLz48L3N2Zz4=')] z-0"></div>
+                    
+                    <div class="bg-white w-56 h-36 rounded-3xl flex flex-col items-center justify-center p-4 text-center shadow-lg border-2 border-brand-cream relative z-10">
+                        <div class="bg-blue-50 w-12 h-12 rounded-full flex items-center justify-center text-blue-500 mb-3">
+                            <i data-lucide="snowflake" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="text-brand-black font-bold text-sm tracking-wide">Keep Frozen -18°C</h4>
+                    </div>
+
+                    <div class="bg-brand-card w-56 h-36 rounded-3xl flex flex-col items-center justify-center p-4 text-center shadow-lg relative z-10 border border-white/10">
+                        <div class="bg-red-500/10 w-12 h-12 rounded-full flex items-center justify-center text-red-500 mb-3">
+                            <i data-lucide="flame" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="text-white font-bold text-sm tracking-wide">Heat Before Serving</h4>
+                    </div>
+                </div>
+
+                <!-- Kanan: Lingkaran Dashed dengan Gambar -->
+                <div class="relative w-72 h-72 sm:w-80 sm:h-80 flex items-center justify-center group">
+                    <div class="absolute inset-0 rounded-full border-2 border-dashed border-brand-green spin-slow opacity-40"></div>
+                    
+                    <img src="https://images.unsplash.com/photo-1626082895617-2c63394a4ea3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="" class="w-60 h-60 sm:w-[260px] sm:h-[260px] object-cover rounded-full shadow-2xl relative z-10 group-hover:scale-105 transition-transform duration-500 border-8 border-brand-cream">
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         9. BRANCHES / LOCATION SECTION
+         2 kolom. Kiri detail alamat, kanan ilustrasi restoran/makanan
+         ========================================== -->
+    <section id="location" class="py-20 max-w-6xl mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-display font-bold text-brand-black">Location & Opening Hours</h2>
+            <div class="w-16 h-1 bg-brand-green mx-auto mt-4 rounded-full"></div>
+        </div>
+
+        <div class="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-xl border border-brand-cream flex flex-col md:flex-row items-center gap-12">
+            
+            <!-- Kiri: Info Alamat & Jam Buka -->
+            <div class="flex-1 space-y-8 w-full">
+                <!-- Alamat -->
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 bg-brand-green/10 rounded-full flex items-center justify-center text-brand-green shrink-0 mt-1">
+                        <i data-lucide="map-pin" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-brand-black mb-1">Pesona Frozen</h3>
+                        <p class="text-gray-600 leading-relaxed">Jl. Contoh No.123<br>Lampung, Indonesia</p>
+                    </div>
+                </div>
+
+                <!-- Jam Buka -->
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 bg-brand-gold/20 rounded-full flex items-center justify-center text-brand-gold shrink-0 mt-1">
+                        <i data-lucide="clock" class="w-6 h-6 text-yellow-600"></i>
+                    </div>
+                    <div class="w-full max-w-[250px]">
+                        <div class="flex justify-between border-b border-gray-100 pb-2 mb-2">
+                            <span class="font-medium text-brand-black">Monday – Friday</span>
+                            <span class="text-gray-600">09:00 – 18:00</span>
+                        </div>
+                        <div class="flex justify-between border-b border-gray-100 pb-2 mb-2">
+                            <span class="font-medium text-brand-black">Saturday</span>
+                            <span class="text-gray-600">09:00 – 15:00</span>
+                        </div>
+                        <div class="flex justify-between text-red-500 font-medium">
+                            <span>Sunday</span>
+                            <span>Closed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kanan: Gambar Ilustrasi -->
+            <div class="flex-1 w-full h-[300px] md:h-[350px] rounded-3xl overflow-hidden shadow-lg relative">
+                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="[Image of Restaurant Interior]" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-black/60 to-transparent flex items-end p-6">
+                    <span class="text-white font-display font-bold text-xl drop-shadow-md">Visit our offline store</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==========================================
+         10. CONTACT SECTION
+         Card besar rounded, Background gambar blur
+         ========================================== -->
+    <section id="contact" class="py-10 px-6 max-w-6xl mx-auto">
+        <div class="relative rounded-[3rem] overflow-hidden shadow-2xl bg-brand-dark">
+            <!-- Background Image Blur -->
+            <div class="absolute inset-0">
+                <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="" class="w-full h-full object-cover opacity-20 filter blur-sm">
+            </div>
+            
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2">
+                <!-- Kiri: Decor Teks (Optional display) -->
+                <div class="p-12 hidden lg:flex flex-col justify-end text-white border-r border-white/10">
+                    <h2 class="text-6xl font-display font-bold opacity-90 leading-none mb-4">Let's<br>Connect</h2>
+                    <p class="text-brand-cream/80 text-sm max-w-xs font-medium">We'd love to hear from you. Reach out for any inquiries.</p>
+                </div>
+                
+                <!-- Kanan: Form Transparan Terang -->
+                <div class="p-8 md:p-12">
+                    <div class="bg-white/95 backdrop-blur-md rounded-[2rem] p-8 shadow-xl">
+                        <h3 class="text-2xl font-display font-bold text-brand-black mb-6 text-center">Contact Us</h3>
+                        
+                        <form class="space-y-5" onsubmit="event.preventDefault(); alert('Pesan berhasil dikirim!');">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wide">Name</label>
+                                <input type="text" placeholder="Enter your name" class="w-full bg-gray-50 rounded-xl px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-green border border-gray-200 text-brand-black">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wide">Phone</label>
+                                <input type="tel" placeholder="Enter your phone number" class="w-full bg-gray-50 rounded-xl px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-green border border-gray-200 text-brand-black">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-wide">Message</label>
+                                <textarea rows="3" placeholder="Write your message here..." class="w-full bg-gray-50 rounded-xl px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-green border border-gray-200 resize-none text-brand-black"></textarea>
+                            </div>
+                            <div class="pt-2">
+                                <button type="submit" class="w-full bg-brand-green hover:bg-green-600 text-white font-bold py-3.5 rounded-xl transition-colors shadow-lg shadow-brand-green/20">
+                                    Send Order
+                                </button>
+                                <p class="text-[11px] text-center text-gray-500 mt-3 font-medium">For bulk order please contact via WhatsApp.</p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         11. FOOTER
+         Dark bg, 3 kolom
+         ========================================== -->
+    <footer class="bg-brand-dark text-white pt-16 pb-8 border-t-[8px] border-brand-green mt-10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-center text-center md:text-left">
+                
+                <!-- Kolom 1: Logo & Tagline -->
+                <div class="space-y-4 flex flex-col items-center md:items-start">
+                    <!-- Logo Minimal -->
+                    <div class="w-16 h-16 rounded-full border-2 border-brand-green flex flex-col items-center justify-center bg-white text-brand-green shadow-inner">
+                        <span class="font-display font-extrabold leading-none text-xl">PF</span>
+                    </div>
+                    <h2 class="text-xl font-display font-bold">Pesona Frozen</h2>
+                    <p class="text-sm text-gray-400 font-medium tracking-wide">
+                        Authentic Indonesian Frozen Food
+                    </p>
+                </div>
+
+                <!-- Kolom 2: Ilustrasi Makanan Indonesia -->
+                <div class="flex justify-center">
+                    <div class="w-32 h-32 rounded-full border border-white/10 overflow-hidden relative group shadow-2xl">
+                        <img src="assets/img/logo.png" alt="" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                </div>
+
+                <!-- Kolom 3: Newsletter -->
+                <div class="flex flex-col items-center md:items-end w-full">
+                    <h4 class="font-bold text-sm mb-4">Newsletter</h4>
+                    <form class="flex w-full max-w-[280px] relative" onsubmit="event.preventDefault(); alert('Terima kasih telah berlangganan!');">
+                        <input type="email" placeholder="Enter your email" required class="w-full bg-white/10 rounded-full px-5 py-3 text-sm focus:outline-none focus:ring-1 focus:ring-brand-green border border-white/20 text-white placeholder-gray-400">
+                        <button type="submit" class="absolute right-1 top-1 bottom-1 bg-brand-green text-white px-5 rounded-full text-xs font-bold hover:bg-green-600 transition-colors">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+
+            <!-- Copyright -->
+            <div class="border-t border-white/10 mt-16 pt-6 flex justify-center">
+                <p class="text-xs text-gray-500 font-medium">© 2026 Pesona Frozen. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
-    <!-- ⚙️ JS INTERACTION -->
+    <!-- ==========================================
+         JAVASCRIPT INTERACTIONS
+         ========================================== -->
     <script>
-        // Toggle Mobile Menu
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
+        // Inisialisasi Lucide Icons
+        lucide.createIcons();
 
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            mobileMenu.classList.toggle('flex');
+        // 1. Order Popup Logic
+        const popup = document.getElementById('order-popup');
+        
+        function openPopup() {
+            popup.classList.remove('hidden');
+        }
+        
+        function closePopup() {
+            popup.classList.add('hidden');
+        }
+
+        // Tutup popup saat klik di luar area box (backdrop)
+        popup.addEventListener('click', (e) => {
+            if (e.target === popup) {
+                closePopup();
+            }
         });
 
-        // Close mobile menu when a link is clicked
+        // 2. Navbar Mobile Toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Tutup mobile menu ketika link diklik
         const mobileLinks = mobileMenu.querySelectorAll('a');
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
-                mobileMenu.classList.remove('flex');
             });
         });
 
-        // Category Tab Interaction (Highlighting & Filtering)
-        function setActiveTab(clickedBtn, category) {
-            // Remove active class from all tabs
-            const tabs = document.querySelectorAll('.category-tab');
-            tabs.forEach(tab => {
-                tab.classList.remove('active');
-                tab.classList.add('text-gray-300'); // Reset text color
+        // 3. Navbar Sticky & Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.firstElementChild.classList.add('bg-brand-dark/95', 'py-2');
+                navbar.firstElementChild.classList.remove('bg-brand-dark', 'py-3');
+            } else {
+                navbar.firstElementChild.classList.add('bg-brand-dark', 'py-3');
+                navbar.firstElementChild.classList.remove('bg-brand-dark/95', 'py-2');
+            }
+        });
+
+        // 4. Category Highlight & Filtering
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const menuItems = document.querySelectorAll('.menu-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Reset styling semua tab
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-brand-green/10', 'text-brand-green', 'border-brand-green');
+                    b.classList.add('text-gray-500', 'border-transparent');
+                });
+                
+                // Tambahkan styling active tab
+                btn.classList.add('bg-brand-green/10', 'text-brand-green', 'border-brand-green');
+                btn.classList.remove('text-gray-500', 'border-transparent');
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                // Filter items
+                menuItems.forEach(item => {
+                    const categories = item.getAttribute('data-category').split(' ');
+                    
+                    if (filterValue === 'all' || categories.includes(filterValue)) {
+                        item.classList.remove('hide-item');
+                        // Reset animasi muncul
+                        item.style.opacity = '0';
+                        item.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            item.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, 50);
+                    } else {
+                        item.classList.add('hide-item');
+                    }
+                });
             });
-
-            // Add active class to clicked tab
-            clickedBtn.classList.add('active');
-            clickedBtn.classList.remove('text-gray-300');
-
-            // Filter Products
-            const products = document.querySelectorAll('.product-card');
-            products.forEach(card => {
-                if (card.dataset.category === category) {
-                    card.classList.remove('hidden');
-                    card.classList.add('flex');
-                } else {
-                    card.classList.add('hidden');
-                    card.classList.remove('flex');
-                }
-            });
-        }
-
-        // Add smooth reveal animation on scroll (optional lightweight implementation)
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('opacity-100', 'translate-y-0');
-                    entry.target.classList.remove('opacity-0', 'translate-y-10');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        // Apply observer to section children
-        document.querySelectorAll('section > div').forEach((el) => {
-            el.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
-            observer.observe(el);
         });
     </script>
 </body>
